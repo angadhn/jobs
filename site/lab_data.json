@@ -1,0 +1,590 @@
+{
+  "total_jobs": 1186,
+  "labs": [
+    "anthropic",
+    "deepmind",
+    "openai"
+  ],
+  "lab_counts": {
+    "anthropic": 449,
+    "deepmind": 114,
+    "openai": 623
+  },
+  "weighted_avg_exposure": 8.2,
+  "domains": [
+    {
+      "domain": "operations",
+      "label": "Operations",
+      "lab_jobs": 260,
+      "lab_pct": 21.9,
+      "avg_bls_exposure": 8.0,
+      "bls_employment": 3817900,
+      "matched_occupations": [
+        {
+          "slug": "human-resources-specialists",
+          "title": "Human resources specialists",
+          "exposure": 7,
+          "bls_jobs": 944300,
+          "outlook_pct": 6,
+          "median_pay": 72910
+        },
+        {
+          "slug": "financial-analysts",
+          "title": "Financial analysts",
+          "exposure": 9,
+          "bls_jobs": 429000,
+          "outlook_pct": 6,
+          "median_pay": 101910
+        },
+        {
+          "slug": "accountants-and-auditors",
+          "title": "Accountants and auditors",
+          "exposure": 8,
+          "bls_jobs": 1579800,
+          "outlook_pct": 5,
+          "median_pay": 81680
+        },
+        {
+          "slug": "lawyers",
+          "title": "Lawyers",
+          "exposure": 8,
+          "bls_jobs": 864800,
+          "outlook_pct": 4,
+          "median_pay": 151160
+        }
+      ],
+      "example_titles": [
+        "Analyst, The Anthropic Institute",
+        "Analytics Data Engineer",
+        "Analytics Data Engineering Manager, Product",
+        "Applied AI Engineer",
+        "Applied AI Engineer"
+      ],
+      "paradox_score": 17.5,
+      "by_lab": {
+        "anthropic": 119,
+        "deepmind": 38,
+        "openai": 103
+      }
+    },
+    {
+      "domain": "sales_business",
+      "label": "Sales & Business",
+      "lab_jobs": 222,
+      "lab_pct": 18.7,
+      "avg_bls_exposure": 7.7,
+      "bls_employment": 1664900,
+      "matched_occupations": [
+        {
+          "slug": "sales-managers",
+          "title": "Sales managers",
+          "exposure": 7,
+          "bls_jobs": 619500,
+          "outlook_pct": 5,
+          "median_pay": 138060
+        },
+        {
+          "slug": "advertising-sales-agents",
+          "title": "Advertising sales agents",
+          "exposure": 7,
+          "bls_jobs": 103700,
+          "outlook_pct": -6,
+          "median_pay": 61460
+        },
+        {
+          "slug": "market-research-analysts",
+          "title": "Market research analysts",
+          "exposure": 9,
+          "bls_jobs": 941700,
+          "outlook_pct": 7,
+          "median_pay": 76950
+        }
+      ],
+      "example_titles": [
+        "Account Coordinator, Healthcare & Life Sciences",
+        "Account Executive, Academic Medical Centers",
+        "Account Executive, Mid Market - UKI",
+        "Account Executive, Nonprofit ",
+        "Account Executive, Public Sector - India"
+      ],
+      "paradox_score": 14.4,
+      "by_lab": {
+        "anthropic": 83,
+        "openai": 139
+      }
+    },
+    {
+      "domain": "product_engineering",
+      "label": "Product Engineering",
+      "lab_jobs": 157,
+      "lab_pct": 13.2,
+      "avg_bls_exposure": 9.0,
+      "bls_employment": 1895500,
+      "matched_occupations": [
+        {
+          "slug": "software-developers",
+          "title": "Software developers, quality assurance analysts, and testers",
+          "exposure": 9,
+          "bls_jobs": 1895500,
+          "outlook_pct": 15,
+          "median_pay": 131450
+        }
+      ],
+      "example_titles": [
+        "Developer Education Lead",
+        "Full Stack Software Engineer, Reinforcement Learning",
+        "Model Quality Software Engineer, Claude Code",
+        "Senior Full Stack Engineer, Education",
+        "Senior Software Engineer, Databases"
+      ],
+      "paradox_score": 11.9,
+      "by_lab": {
+        "anthropic": 51,
+        "deepmind": 12,
+        "openai": 94
+      }
+    },
+    {
+      "domain": "ai_research",
+      "label": "AI Research",
+      "lab_jobs": 152,
+      "lab_pct": 12.8,
+      "avg_bls_exposure": 9.0,
+      "bls_employment": 320800,
+      "matched_occupations": [
+        {
+          "slug": "computer-and-information-research-scientists",
+          "title": "Computer and information research scientists",
+          "exposure": 9,
+          "bls_jobs": 40300,
+          "outlook_pct": 20,
+          "median_pay": 140910
+        },
+        {
+          "slug": "mathematicians-and-statisticians",
+          "title": "Mathematicians and statisticians",
+          "exposure": 9,
+          "bls_jobs": 34600,
+          "outlook_pct": 8,
+          "median_pay": 104350
+        },
+        {
+          "slug": "data-scientists",
+          "title": "Data scientists",
+          "exposure": 9,
+          "bls_jobs": 245900,
+          "outlook_pct": 34,
+          "median_pay": 112590
+        }
+      ],
+      "example_titles": [
+        "[Expression of Interest] Research Engineer, Production Model Post-Training - London",
+        "Machine Learning Systems Engineer, Research Tools",
+        "Machine Learning Systems Engineer, RL Engineering",
+        "Research Engineer, Agents",
+        "Research Engineer, AI Observability"
+      ],
+      "paradox_score": 11.5,
+      "by_lab": {
+        "anthropic": 28,
+        "deepmind": 31,
+        "openai": 93
+      }
+    },
+    {
+      "domain": "enterprise_deployment",
+      "label": "Enterprise Deployment",
+      "lab_jobs": 99,
+      "lab_pct": 8.3,
+      "avg_bls_exposure": 7.3,
+      "bls_employment": 1653000,
+      "matched_occupations": [
+        {
+          "slug": "sales-engineers",
+          "title": "Sales engineers",
+          "exposure": 7,
+          "bls_jobs": 56800,
+          "outlook_pct": 5,
+          "median_pay": 121520
+        },
+        {
+          "slug": "computer-systems-analysts",
+          "title": "Computer systems analysts",
+          "exposure": 8,
+          "bls_jobs": 521100,
+          "outlook_pct": 9,
+          "median_pay": 103790
+        },
+        {
+          "slug": "management-analysts",
+          "title": "Management analysts",
+          "exposure": 7,
+          "bls_jobs": 1075100,
+          "outlook_pct": 9,
+          "median_pay": 101190
+        }
+      ],
+      "example_titles": [
+        "Forward Deployed Engineer, Applied AI",
+        "Forward Deployed Engineer, Applied AI",
+        "Forward Deployed Engineer, Applied AI",
+        "Forward Deployed Engineer, Applied AI",
+        "Forward Deployed Engineer, Applied AI"
+      ],
+      "paradox_score": 6.1,
+      "by_lab": {
+        "anthropic": 34,
+        "openai": 65
+      }
+    },
+    {
+      "domain": "security",
+      "label": "Security",
+      "lab_jobs": 72,
+      "lab_pct": 6.1,
+      "avg_bls_exposure": 8.0,
+      "bls_employment": 182800,
+      "matched_occupations": [
+        {
+          "slug": "information-security-analysts",
+          "title": "Information security analysts",
+          "exposure": 8,
+          "bls_jobs": 182800,
+          "outlook_pct": 29,
+          "median_pay": 124910
+        }
+      ],
+      "example_titles": [
+        "Anthropic AI Security Fellow",
+        "Application Security Engineer",
+        "Application Security Engineering Manager",
+        "Campus Security Manager",
+        "Engineering Manager, Cloud Security"
+      ],
+      "paradox_score": 4.9,
+      "by_lab": {
+        "anthropic": 27,
+        "deepmind": 1,
+        "openai": 44
+      }
+    },
+    {
+      "domain": "ai_safety",
+      "label": "AI Safety",
+      "lab_jobs": 63,
+      "lab_pct": 5.3,
+      "avg_bls_exposure": 8.5,
+      "bls_employment": 223100,
+      "matched_occupations": [
+        {
+          "slug": "computer-and-information-research-scientists",
+          "title": "Computer and information research scientists",
+          "exposure": 9,
+          "bls_jobs": 40300,
+          "outlook_pct": 20,
+          "median_pay": 140910
+        },
+        {
+          "slug": "information-security-analysts",
+          "title": "Information security analysts",
+          "exposure": 8,
+          "bls_jobs": 182800,
+          "outlook_pct": 29,
+          "median_pay": 124910
+        }
+      ],
+      "example_titles": [
+        "Anthropic AI Safety Fellow",
+        "Applied Safety Research Engineer, Safeguards",
+        "Biological Safety Research Scientist",
+        "Engineering Manager, Safeguards Data Infrastructure",
+        " [Expression of Interest] Research Manager, Interpretability"
+      ],
+      "paradox_score": 4.5,
+      "by_lab": {
+        "anthropic": 27,
+        "deepmind": 9,
+        "openai": 27
+      }
+    },
+    {
+      "domain": "marketing_comms",
+      "label": "Marketing & Comms",
+      "lab_jobs": 50,
+      "lab_pct": 4.2,
+      "avg_bls_exposure": 8.3,
+      "bls_employment": 806300,
+      "matched_occupations": [
+        {
+          "slug": "advertising-promotions-and-marketing-managers",
+          "title": "Advertising, promotions, and marketing managers",
+          "exposure": 8,
+          "bls_jobs": 434000,
+          "outlook_pct": 6,
+          "median_pay": 159660
+        },
+        {
+          "slug": "public-relations-specialists",
+          "title": "Public relations specialists",
+          "exposure": 8,
+          "bls_jobs": 315900,
+          "outlook_pct": 5,
+          "median_pay": 69780
+        },
+        {
+          "slug": "technical-writers",
+          "title": "Technical writers",
+          "exposure": 9,
+          "bls_jobs": 56400,
+          "outlook_pct": 1,
+          "median_pay": 91670
+        }
+      ],
+      "example_titles": [
+        "Communications Manager, Enterprise ",
+        "Community Marketing Lead",
+        "Content Marketing Manager",
+        "Customer Marketing Lead, Digital Native Business",
+        "Customer Marketing Lead, Enterprise"
+      ],
+      "paradox_score": 3.5,
+      "by_lab": {
+        "anthropic": 25,
+        "deepmind": 4,
+        "openai": 21
+      }
+    },
+    {
+      "domain": "infrastructure",
+      "label": "Infrastructure",
+      "lab_jobs": 34,
+      "lab_pct": 2.9,
+      "avg_bls_exposure": 8.5,
+      "bls_employment": 2551100,
+      "matched_occupations": [
+        {
+          "slug": "network-and-computer-systems-administrators",
+          "title": "Network and computer systems administrators",
+          "exposure": 8,
+          "bls_jobs": 331500,
+          "outlook_pct": -4,
+          "median_pay": 96800
+        },
+        {
+          "slug": "software-developers",
+          "title": "Software developers, quality assurance analysts, and testers",
+          "exposure": 9,
+          "bls_jobs": 1895500,
+          "outlook_pct": 15,
+          "median_pay": 131450
+        },
+        {
+          "slug": "database-administrators",
+          "title": "Database administrators and architects",
+          "exposure": 9,
+          "bls_jobs": 144900,
+          "outlook_pct": 4,
+          "median_pay": 123100
+        },
+        {
+          "slug": "computer-network-architects",
+          "title": "Computer network architects",
+          "exposure": 8,
+          "bls_jobs": 179200,
+          "outlook_pct": 12,
+          "median_pay": 130390
+        }
+      ],
+      "example_titles": [
+        "Engineering Manager, Accelerator Platform",
+        "Engineering Manager, Cloud Inference AWS",
+        "Engineering Manager, GPU (ML Accelerator)",
+        "Engineering Manager, Inference",
+        "Engineering Manager, Inference Developer Productivity"
+      ],
+      "paradox_score": 2.4,
+      "by_lab": {
+        "anthropic": 23,
+        "openai": 11
+      }
+    },
+    {
+      "domain": "program_management",
+      "label": "Program Management",
+      "lab_jobs": 29,
+      "lab_pct": 2.4,
+      "avg_bls_exposure": 7.0,
+      "bls_employment": 2788500,
+      "matched_occupations": [
+        {
+          "slug": "project-management-specialists",
+          "title": "Project management specialists",
+          "exposure": 7,
+          "bls_jobs": 1046300,
+          "outlook_pct": 6,
+          "median_pay": 100750
+        },
+        {
+          "slug": "management-analysts",
+          "title": "Management analysts",
+          "exposure": 7,
+          "bls_jobs": 1075100,
+          "outlook_pct": 9,
+          "median_pay": 101190
+        },
+        {
+          "slug": "computer-and-information-systems-managers",
+          "title": "Computer and information systems managers",
+          "exposure": 7,
+          "bls_jobs": 667100,
+          "outlook_pct": 15,
+          "median_pay": 171200
+        }
+      ],
+      "example_titles": [
+        "Copyright Operations Program Manager",
+        "Copyright Operations Program Manager",
+        "Internal Mobility Program Manager",
+        "Senior People Program Manager, M&A",
+        "Technical Program Manager, Compute "
+      ],
+      "paradox_score": 1.7,
+      "by_lab": {
+        "anthropic": 13,
+        "deepmind": 9,
+        "openai": 7
+      }
+    },
+    {
+      "domain": "design",
+      "label": "Design",
+      "lab_jobs": 22,
+      "lab_pct": 1.9,
+      "avg_bls_exposure": 8.5,
+      "bls_employment": 296500,
+      "matched_occupations": [
+        {
+          "slug": "graphic-designers",
+          "title": "Graphic designers",
+          "exposure": 9,
+          "bls_jobs": 265900,
+          "outlook_pct": 2,
+          "median_pay": 61300
+        },
+        {
+          "slug": "industrial-designers",
+          "title": "Industrial designers",
+          "exposure": 8,
+          "bls_jobs": 30600,
+          "outlook_pct": 3,
+          "median_pay": 79450
+        }
+      ],
+      "example_titles": [
+        "Design Engineer, AI Capability Development (Education Labs)",
+        "Design Engineer, Web",
+        "Engineering Manager, UI Claude Consumer Products",
+        "Product Designer",
+        "Senior AI Product Designer, Generative Media, Gemini App"
+      ],
+      "paradox_score": 1.6,
+      "by_lab": {
+        "anthropic": 4,
+        "deepmind": 10,
+        "openai": 8
+      }
+    },
+    {
+      "domain": "data_centers",
+      "label": "Data Centers",
+      "lab_jobs": 13,
+      "lab_pct": 1.1,
+      "avg_bls_exposure": 6.3,
+      "bls_employment": 1189300,
+      "matched_occupations": [
+        {
+          "slug": "electrical-and-electronics-engineers",
+          "title": "Electrical and electronics engineers",
+          "exposure": 7,
+          "bls_jobs": 287900,
+          "outlook_pct": 7,
+          "median_pay": 118780
+        },
+        {
+          "slug": "industrial-engineers",
+          "title": "Industrial engineers",
+          "exposure": 7,
+          "bls_jobs": 351100,
+          "outlook_pct": 11,
+          "median_pay": 101140
+        },
+        {
+          "slug": "construction-managers",
+          "title": "Construction managers",
+          "exposure": 5,
+          "bls_jobs": 550300,
+          "outlook_pct": 9,
+          "median_pay": 106980
+        }
+      ],
+      "example_titles": [
+        "Commercial Counsel, Datacenters & Construction",
+        "Data Center Controls Engineer",
+        "Data Center Energy Lead",
+        "Data Center Facility Operations Lead",
+        "Data Center Hardware Operations Lead"
+      ],
+      "paradox_score": 0.7,
+      "by_lab": {
+        "anthropic": 9,
+        "openai": 4
+      }
+    },
+    {
+      "domain": "policy_trust",
+      "label": "Policy & Trust",
+      "lab_jobs": 13,
+      "lab_pct": 1.1,
+      "avg_bls_exposure": 8.0,
+      "bls_employment": 1187200,
+      "matched_occupations": [
+        {
+          "slug": "political-scientists",
+          "title": "Political scientists",
+          "exposure": 8,
+          "bls_jobs": 6500,
+          "outlook_pct": -3,
+          "median_pay": 139380
+        },
+        {
+          "slug": "lawyers",
+          "title": "Lawyers",
+          "exposure": 8,
+          "bls_jobs": 864800,
+          "outlook_pct": 4,
+          "median_pay": 151160
+        },
+        {
+          "slug": "public-relations-specialists",
+          "title": "Public relations specialists",
+          "exposure": 8,
+          "bls_jobs": 315900,
+          "outlook_pct": 5,
+          "median_pay": 69780
+        }
+      ],
+      "example_titles": [
+        "Geopolitics Analyst, Policy",
+        "Policy Manager, Chemical Weapons and High Yield Explosives",
+        "Product Public Policy, Health and Life Science",
+        "Senior Manager, Tax Operations, Provision, & Compliance",
+        "Technical Policy Manager, Cyber Harms "
+      ],
+      "paradox_score": 0.9,
+      "by_lab": {
+        "anthropic": 6,
+        "openai": 7
+      }
+    }
+  ]
+}

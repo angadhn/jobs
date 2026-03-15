@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Are AI Labs Actually Hiring For?</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg2: #12121a;
+  --fg: #e0e0e8;
+  --fg2: #888894;
+  --sidebar-w: 240px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--bg2);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 18px;
+  z-index: 10;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#sidebar h1 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+#sidebar .subtitle {
+  font-size: 11px;
+  color: var(--fg2);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+#sidebar .subtitle a { color: var(--fg2); }
+
+.stat-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stat-section h3 {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg2);
+}
+.stat-big {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--fg2);
+}
+
+.tier-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.tier-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+.tier-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.tier-name {
+  flex: 1;
+  color: var(--fg);
+  font-size: 11px;
+}
+.tier-jobs {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.tier-pct {
+  text-align: right;
+  width: 32px;
+  color: var(--fg2);
+  font-size: 10px;
+}
+
+.lab-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.lab-pill {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  color: var(--fg2);
+}
+.lab-pill .count {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.gradient-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--fg2);
+}
+.gradient-legend canvas {
+  border-radius: 2px;
+}
+
+canvas#canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  cursor: default;
+}
+
+#tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 380px;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 20;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+#tooltip.visible { opacity: 1; }
+#tooltip .tt-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #fff;
+}
+#tooltip .tt-exposure {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+#tooltip .tt-stats {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2px 12px;
+  font-size: 12px;
+}
+#tooltip .tt-stats .label { color: var(--fg2); }
+#tooltip .tt-stats .value { color: var(--fg); text-align: right; }
+#tooltip .tt-titles {
+  font-size: 11px;
+  color: var(--fg2);
+  margin-top: 8px;
+  line-height: 1.4;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+#tooltip .tt-occupations {
+  font-size: 11px;
+  color: var(--fg2);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div>
+    <h1>What Are AI Labs Actually Hiring For?</h1>
+    <div class="subtitle">
+      Frontier lab job postings vs BLS AI exposure scores<br>
+      Area = job count &middot; color = BLS exposure<br>
+      <a href="index.html">BLS Treemap</a> &middot; <a href="https://github.com/angadhn/jobs">GitHub</a>
+    </div>
+  </div>
+
+  <div class="stat-section">
+    <h3>Total lab openings</h3>
+    <div class="stat-big" id="statTotal">—</div>
+    <div class="lab-pills" id="labPills"></div>
+  </div>
+
+  <div class="stat-section">
+    <h3>Avg BLS exposure of hired roles</h3>
+    <div class="stat-big" id="statExposure">—</div>
+    <div class="stat-label">weighted by domain job count, 0–10</div>
+  </div>
+
+  <div class="stat-section">
+    <h3>Top domains</h3>
+    <div class="tier-bar" id="domainBar"></div>
+  </div>
+
+  <div class="stat-section">
+    <h3>Paradox score</h3>
+    <div class="stat-label">High lab demand + high BLS exposure = paradox</div>
+    <div class="tier-bar" id="paradoxBar"></div>
+  </div>
+
+  <div class="gradient-legend">
+    <span>Low exposure</span>
+    <canvas id="gradientLegend" width="80" height="8"></canvas>
+    <span>High</span>
+  </div>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<div id="tooltip">
+  <div class="tt-title"></div>
+  <div class="tt-exposure"></div>
+  <div class="tt-stats"></div>
+  <div class="tt-titles"></div>
+  <div class="tt-occupations"></div>
+</div>
+
+<script>
+
+// ── Exposure color scale (matches index.html) ───────────────────────────
+
+function exposureColor(score) {
+  if (score == null) return [128, 128, 128];
+  const t = Math.max(0, Math.min(10, score)) / 10;
+  let r, g, b;
+  if (t < 0.5) {
+    const s = t / 0.5;
+    r = Math.round(50 + s * 180);
+    g = Math.round(160 - s * 10);
+    b = Math.round(50 - s * 20);
+  } else {
+    const s = (t - 0.5) / 0.5;
+    r = Math.round(230 + s * 25);
+    g = Math.round(150 - s * 110);
+    b = Math.round(30 - s * 10);
+  }
+  return [r, g, b];
+}
+
+function exposureColorCSS(score, alpha) {
+  const [r, g, b] = exposureColor(score);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+// ── Squarified treemap layout ────────────────────────────────────────────
+
+function squarify(items, x, y, w, h) {
+  if (items.length === 0) return [];
+  if (items.length === 1) {
+    return [{ ...items[0], rx: x, ry: y, rw: w, rh: h }];
+  }
+
+  const total = items.reduce((s, d) => s + d.value, 0);
+  if (total === 0) return [];
+
+  const results = [];
+  let remaining = [...items];
+  let cx = x, cy = y, cw = w, ch = h;
+
+  while (remaining.length > 0) {
+    const remTotal = remaining.reduce((s, d) => s + d.value, 0);
+    const vertical = cw >= ch;
+    const side = vertical ? ch : cw;
+
+    let row = [remaining[0]];
+    let rowSum = remaining[0].value;
+
+    for (let i = 1; i < remaining.length; i++) {
+      const candidate = [...row, remaining[i]];
+      const candidateSum = rowSum + remaining[i].value;
+      if (worstAspect(candidate, candidateSum, side, remTotal, vertical ? cw : ch) <
+          worstAspect(row, rowSum, side, remTotal, vertical ? cw : ch)) {
+        row = candidate;
+        rowSum = candidateSum;
+      } else {
+        break;
+      }
+    }
+
+    const rowFraction = rowSum / remTotal;
+    const rowThickness = vertical ? cw * rowFraction : ch * rowFraction;
+
+    let offset = 0;
+    for (const item of row) {
+      const itemFraction = item.value / rowSum;
+      const itemLength = side * itemFraction;
+      if (vertical) {
+        results.push({ ...item, rx: cx, ry: cy + offset, rw: rowThickness, rh: itemLength });
+      } else {
+        results.push({ ...item, rx: cx + offset, ry: cy, rw: itemLength, rh: rowThickness });
+      }
+      offset += itemLength;
+    }
+
+    if (vertical) {
+      cx += rowThickness;
+      cw -= rowThickness;
+    } else {
+      cy += rowThickness;
+      ch -= rowThickness;
+    }
+
+    remaining = remaining.slice(row.length);
+  }
+
+  return results;
+}
+
+function worstAspect(row, rowSum, side, totalArea, availableExtent) {
+  const rowExtent = availableExtent * (rowSum / totalArea);
+  if (rowExtent === 0) return Infinity;
+  let worst = 0;
+  for (const item of row) {
+    const itemLen = side * (item.value / rowSum);
+    if (itemLen === 0) continue;
+    const aspect = Math.max(rowExtent / itemLen, itemLen / rowExtent);
+    if (aspect > worst) worst = aspect;
+  }
+  return worst;
+}
+
+// ── Rendering ────────────────────────────────────────────────────────────
+
+let siteData = null;
+let rects = [];
+let hovered = null;
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let dpr = window.devicePixelRatio || 1;
+
+const MARGIN = 12;
+const GAP = 2;
+
+function formatNumber(n) {
+  if (n == null) return "\u2014";
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
+  if (n >= 1000) return Math.round(n / 1000) + "K";
+  return n.toLocaleString();
+}
+
+function layout() {
+  if (!siteData) return;
+
+  const sidebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w'));
+  const w = window.innerWidth - sidebarW;
+  const h = window.innerHeight;
+
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+
+  const tx = MARGIN;
+  const ty = MARGIN;
+  const tw = w - MARGIN * 2;
+  const th = h - MARGIN * 2;
+
+  // Create treemap items from domains
+  const items = siteData.domains.map(d => ({
+    ...d,
+    value: d.lab_jobs,
+  })).filter(d => d.value > 0);
+
+  // Sort by value descending
+  items.sort((a, b) => b.value - a.value);
+
+  rects = squarify(items, tx, ty, tw, th);
+}
+
+function draw() {
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.fillStyle = "#0a0a0f";
+  ctx.fillRect(0, 0, w / dpr, h / dpr);
+
+  for (const r of rects) {
+    const isHovered = r === hovered;
+
+    const g = GAP / 2;
+    const rx = r.rx + g;
+    const ry = r.ry + g;
+    const rw = r.rw - g * 2;
+    const rh = r.rh - g * 2;
+
+    if (rw <= 0 || rh <= 0) continue;
+
+    const exposure = r.avg_bls_exposure;
+    const fillAlpha = isHovered ? 0.85 : 0.55;
+    ctx.fillStyle = exposureColorCSS(exposure, fillAlpha);
+
+    // Rounded rect
+    const radius = 4;
+    ctx.beginPath();
+    ctx.moveTo(rx + radius, ry);
+    ctx.lineTo(rx + rw - radius, ry);
+    ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + radius);
+    ctx.lineTo(rx + rw, ry + rh - radius);
+    ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - radius, ry + rh);
+    ctx.lineTo(rx + radius, ry + rh);
+    ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - radius);
+    ctx.lineTo(rx, ry + radius);
+    ctx.quadraticCurveTo(rx, ry, rx + radius, ry);
+    ctx.closePath();
+    ctx.fill();
+
+    if (isHovered) {
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Labels
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(rx + 8, ry + 6, rw - 16, rh - 12);
+    ctx.clip();
+
+    // Domain label — capped at 16px to avoid oversized text in large rects
+    const maxFontSize = Math.min(16, Math.max(10, Math.min(rw / 10, rh / 5)));
+    ctx.font = `600 ${maxFontSize}px -apple-system, system-ui, sans-serif`;
+    ctx.fillStyle = isHovered ? "#fff" : "rgba(255,255,255,0.92)";
+    ctx.textBaseline = "top";
+    ctx.fillText(r.label, rx + 10, ry + 8);
+
+    // Stats line
+    if (rh > 36 && rw > 70) {
+      const statFont = Math.max(9, maxFontSize - 3);
+      ctx.font = `400 ${statFont}px -apple-system, system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+
+      const expStr = exposure != null ? `exposure ${exposure}/10` : "";
+      const jobStr = `${r.lab_jobs} roles (${r.lab_pct}%)`;
+      ctx.fillText(`${jobStr}  ${expStr}`, rx + 10, ry + 8 + maxFontSize + 3);
+    }
+
+    // Example titles — max 3, smaller font
+    if (rh > 70 && rw > 100 && r.example_titles) {
+      const titleFont = Math.max(8, Math.min(10, maxFontSize - 4));
+      ctx.font = `400 ${titleFont}px -apple-system, system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(255,255,255,0.28)";
+
+      let ty = ry + 8 + maxFontSize + 3 + Math.max(9, maxFontSize - 3) + 6;
+      const maxTitles = Math.min(3, r.example_titles.length, Math.floor((ry + rh - ty - 4) / (titleFont + 2)));
+      for (let i = 0; i < maxTitles; i++) {
+        ctx.fillText(r.example_titles[i], rx + 10, ty);
+        ty += titleFont + 2;
+      }
+    }
+
+    ctx.restore();
+  }
+}
+
+function hitTest(mx, my) {
+  const sidebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w'));
+  const cx = mx - sidebarW;
+  const cy = my;
+  for (let i = rects.length - 1; i >= 0; i--) {
+    const r = rects[i];
+    if (cx >= r.rx && cx < r.rx + r.rw && cy >= r.ry && cy < r.ry + r.rh) {
+      return r;
+    }
+  }
+  return null;
+}
+
+function showTooltip(d, mx, my) {
+  const tt = document.getElementById("tooltip");
+
+  tt.querySelector(".tt-title").textContent = d.label;
+
+  const exposure = d.avg_bls_exposure;
+  if (exposure != null) {
+    const barWidth = exposure * 10;
+    const color = exposureColorCSS(exposure, 1);
+    tt.querySelector(".tt-exposure").innerHTML =
+      `<span style="color:${color};font-weight:600;">BLS Exposure: ${exposure}/10</span>` +
+      `<div style="margin-top:3px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;">` +
+      `<div style="height:100%;width:${barWidth}%;background:${color};border-radius:2px;"></div></div>`;
+  } else {
+    tt.querySelector(".tt-exposure").innerHTML = "";
+  }
+
+  // Stats grid
+  const labBreakdown = Object.entries(d.by_lab || {})
+    .sort((a, b) => b[1] - a[1])
+    .map(([lab, count]) => `${lab}: ${count}`)
+    .join(", ");
+
+  tt.querySelector(".tt-stats").innerHTML = `
+    <span class="label">Lab openings</span><span class="value">${d.lab_jobs} (${d.lab_pct}%)</span>
+    <span class="label">BLS employment</span><span class="value">${formatNumber(d.bls_employment)}</span>
+    <span class="label">Paradox score</span><span class="value">${d.paradox_score}</span>
+    <span class="label">By lab</span><span class="value">${labBreakdown || "\u2014"}</span>
+  `;
+
+  // Example titles
+  if (d.example_titles && d.example_titles.length > 0) {
+    tt.querySelector(".tt-titles").innerHTML =
+      "<strong>Example titles:</strong> " + d.example_titles.join(", ");
+  } else {
+    tt.querySelector(".tt-titles").innerHTML = "";
+  }
+
+  // Matched BLS occupations
+  if (d.matched_occupations && d.matched_occupations.length > 0) {
+    const occHtml = d.matched_occupations.map(o =>
+      `${o.title} <span style="color:${exposureColorCSS(o.exposure, 0.8)}">(${o.exposure}/10)</span>`
+    ).join(", ");
+    tt.querySelector(".tt-occupations").innerHTML =
+      "<strong>BLS occupations:</strong> " + occHtml;
+  } else {
+    tt.querySelector(".tt-occupations").innerHTML = "";
+  }
+
+  // Position tooltip — measure actual size to prevent clipping
+  tt.style.left = "0px";
+  tt.style.top = "0px";
+  tt.style.visibility = "hidden";
+  tt.classList.add("visible");
+  const ttRect = tt.getBoundingClientRect();
+  const ttW = ttRect.width;
+  const ttH = ttRect.height;
+  tt.style.visibility = "";
+
+  const pad = 14;
+  let tx = mx + pad;
+  let ty = my - pad;
+
+  // Flip horizontally if would overflow right edge
+  if (tx + ttW > window.innerWidth - 8) tx = mx - ttW - pad;
+  // Flip vertically if would overflow bottom
+  if (ty + ttH > window.innerHeight - 8) ty = window.innerHeight - ttH - 8;
+  // Clamp to top
+  if (ty < 8) ty = 8;
+  // Clamp to left
+  if (tx < 8) tx = 8;
+
+  tt.style.left = tx + "px";
+  tt.style.top = ty + "px";
+}
+
+function hideTooltip() {
+  document.getElementById("tooltip").classList.remove("visible");
+}
+
+// ── Sidebar stats ────────────────────────────────────────────────────────
+
+function computeStats() {
+  if (!siteData) return;
+
+  document.getElementById("statTotal").textContent = siteData.total_jobs;
+
+  // Lab pills
+  const pillsEl = document.getElementById("labPills");
+  pillsEl.innerHTML = siteData.labs.map(lab => {
+    const count = siteData.lab_counts[lab] || 0;
+    return `<span class="lab-pill">${lab} <span class="count">${count}</span></span>`;
+  }).join("");
+
+  // Weighted exposure
+  const exp = siteData.weighted_avg_exposure;
+  document.getElementById("statExposure").innerHTML =
+    `<span style="color:${exposureColorCSS(exp, 1)}">${exp}</span>`;
+
+  // Domain breakdown (top domains by job count)
+  const domainEl = document.getElementById("domainBar");
+  domainEl.innerHTML = siteData.domains.slice(0, 8).map(d => {
+    const color = exposureColorCSS(d.avg_bls_exposure, 0.8);
+    return `<div class="tier-row">
+      <div class="tier-color" style="background:${color}"></div>
+      <span class="tier-name">${d.label}</span>
+      <span class="tier-jobs">${d.lab_jobs}</span>
+      <span class="tier-pct">${d.lab_pct}%</span>
+    </div>`;
+  }).join("");
+
+  // Paradox bar (sorted by paradox score)
+  const paradoxEl = document.getElementById("paradoxBar");
+  const byParadox = [...siteData.domains]
+    .filter(d => d.paradox_score > 0)
+    .sort((a, b) => b.paradox_score - a.paradox_score)
+    .slice(0, 6);
+
+  const maxParadox = byParadox.length > 0 ? byParadox[0].paradox_score : 1;
+  paradoxEl.innerHTML = byParadox.map(d => {
+    const barWidth = (d.paradox_score / maxParadox) * 100;
+    const color = exposureColorCSS(d.avg_bls_exposure, 0.8);
+    return `<div class="tier-row">
+      <span class="tier-name" style="width:90px;flex:none;font-size:10px">${d.label}</span>
+      <div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden">
+        <div style="height:100%;width:${barWidth}%;background:${color};border-radius:2px"></div>
+      </div>
+      <span class="tier-pct">${d.paradox_score}</span>
+    </div>`;
+  }).join("");
+}
+
+// ── Events ───────────────────────────────────────────────────────────────
+
+canvas.addEventListener("mousemove", (e) => {
+  const hit = hitTest(e.clientX, e.clientY);
+  if (hit !== hovered) {
+    hovered = hit;
+    draw();
+  }
+  if (hovered) {
+    showTooltip(hovered, e.clientX, e.clientY);
+    canvas.style.cursor = "pointer";
+  } else {
+    hideTooltip();
+    canvas.style.cursor = "default";
+  }
+});
+
+canvas.addEventListener("mouseleave", () => {
+  hovered = null;
+  hideTooltip();
+  draw();
+});
+
+function resize() {
+  dpr = window.devicePixelRatio || 1;
+  layout();
+  draw();
+}
+
+// ── Legend gradient ──────────────────────────────────────────────────────
+
+function drawGradientLegend() {
+  const c = document.getElementById("gradientLegend");
+  const gctx = c.getContext("2d");
+  for (let x = 0; x < 80; x++) {
+    const score = (x / 79) * 10;
+    gctx.fillStyle = exposureColorCSS(score, 1);
+    gctx.fillRect(x, 0, 1, 8);
+  }
+}
+
+// ── Load ─────────────────────────────────────────────────────────────────
+
+fetch("lab_data.json")
+  .then(r => r.json())
+  .then(d => {
+    siteData = d;
+    computeStats();
+    drawGradientLegend();
+    resize();
+  });
+
+window.addEventListener("resize", resize);
+</script>
+</body>
+</html>
