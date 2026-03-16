@@ -38,6 +38,34 @@ The repo includes scrapers, parsers, and a pipeline for writing custom LLM promp
 | `pages/` | Clean Markdown versions of each occupation page |
 | `site/` | Static website (treemap visualization) |
 
+## AI Lab Hiring Analysis
+
+This fork adds a pipeline that scrapes job postings from **Anthropic**, **DeepMind**, and **OpenAI**, categorizes them into skill domains, and cross-references with BLS AI exposure scores.
+
+**Live demo: [Lab Hiring Treemap](https://angadhn.github.io/jobs/labs.html)**
+
+### Lab data pipeline
+
+1. **Scrape** (`scrape_labs.py`) — API-based job fetching from frontier AI labs.
+2. **Categorize** (`categorize_labs.py`) — LLM or keyword-based domain classification of lab postings.
+3. **Build** (`build_lab_data.py`) — Cross-references lab postings with BLS exposure scores, computes paradox scores. Output: `site/lab_data.json`.
+4. **Visualize** (`site/labs.html`) — Interactive treemap of lab openings by skill domain, colored by BLS AI exposure, lab, or paradox score.
+
+### Key finding
+
+Labs hire disproportionately for roles rated **7-9** on the BLS exposure scale — the very jobs AI is most likely to reshape. The weighted average exposure across all 1,186 lab openings is **8.2/10**, well above the economy-wide average of 5.3/10.
+
+| File | Description |
+|------|-------------|
+| `scrape_labs.py` | Fetches job postings from Anthropic, DeepMind, OpenAI APIs |
+| `categorize_labs.py` | Classifies postings into skill domains |
+| `build_lab_data.py` | Merges lab data with BLS exposure scores |
+| `lab_jobs/` | Raw scraped job data per lab |
+| `lab_jobs.json` | Combined categorized lab postings |
+| `lab_analysis.md` | Summary analysis of findings |
+| `site/labs.html` | Interactive treemap visualization |
+| `site/lab_data.json` | Compact data for the frontend |
+
 ## LLM prompt
 
 [`prompt.md`](prompt.md) packages all the data — aggregate statistics, tier breakdowns, exposure by pay/education, BLS growth projections, and all 342 occupations with their scores and rationales — into a single file (~45K tokens) designed to be pasted into an LLM. This lets you have a data-grounded conversation about AI's impact on the job market without needing to run any code. Regenerate it with `uv run python make_prompt.py`.

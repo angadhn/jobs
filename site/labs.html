@@ -12,59 +12,77 @@
   --bg2: #12121a;
   --fg: #e0e0e8;
   --fg2: #888894;
-  --sidebar-w: 240px;
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  overflow: hidden;
-  height: 100vh;
 }
 
-#sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: var(--sidebar-w);
-  background: var(--bg2);
-  border-right: 1px solid rgba(255,255,255,0.06);
-  padding: 20px 18px;
-  z-index: 10;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+#wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 250px;
 }
 
-#sidebar h1 {
-  font-size: 15px;
-  font-weight: 600;
+#header {
+  padding: 20px 28px 16px;
+  flex-shrink: 0;
+}
+
+.intro {
+  margin-bottom: 18px;
+}
+.intro h1 {
+  font-size: 26px;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.3;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
-#sidebar .subtitle {
-  font-size: 11px;
+.intro h1 a {
+  font-size: 13px;
+  font-weight: 400;
   color: var(--fg2);
-  margin-top: 4px;
-  line-height: 1.4;
+  text-decoration: none;
 }
-#sidebar .subtitle a { color: var(--fg2); }
+.intro h1 a:hover { text-decoration: underline; }
+.intro p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg2);
+  margin-bottom: 8px;
+}
+.intro a { color: var(--fg2); }
+.intro strong, .intro b { color: var(--fg); font-weight: 600; }
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 28px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
 
 .stat-section {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 .stat-section h3 {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--fg2);
 }
 .stat-big {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -74,39 +92,12 @@ body {
   color: var(--fg2);
 }
 
-.tier-bar {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.tier-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-}
-.tier-color {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-.tier-name {
-  flex: 1;
-  color: var(--fg);
-  font-size: 11px;
-}
-.tier-jobs {
-  text-align: right;
-  white-space: nowrap;
-  font-size: 11px;
-}
-.tier-pct {
-  text-align: right;
-  width: 32px;
-  color: var(--fg2);
-  font-size: 10px;
-}
+.tier-bar { display: flex; flex-direction: column; gap: 3px; }
+.tier-row { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.tier-color { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.tier-name { flex: 1; color: var(--fg2); white-space: nowrap; }
+.tier-jobs { text-align: right; white-space: nowrap; }
+.tier-pct { text-align: right; width: 30px; color: var(--fg2); font-size: 11px; }
 
 .lab-pills {
   display: flex;
@@ -114,8 +105,8 @@ body {
   gap: 4px;
 }
 .lab-pill {
-  font-size: 10px;
-  padding: 3px 8px;
+  font-size: 11px;
+  padding: 3px 10px;
   border-radius: 10px;
   background: rgba(255,255,255,0.06);
   color: var(--fg2);
@@ -125,22 +116,56 @@ body {
   font-weight: 600;
 }
 
+.hbar-chart { display: flex; flex-direction: column; gap: 3px; }
+.hbar-row { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.hbar-label { width: 90px; flex-shrink: 0; color: var(--fg2); font-size: 11px; text-align: right; }
+.hbar-track { flex: 1; height: 12px; background: rgba(255,255,255,0.04); border-radius: 2px; overflow: hidden; min-width: 36px; }
+.hbar-fill { height: 100%; border-radius: 2px; }
+.hbar-val { width: 30px; flex-shrink: 0; font-size: 11px; color: var(--fg); text-align: right; }
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.color-toggle {
+  display: flex;
+  gap: 4px;
+}
+.color-toggle button {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--fg2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.color-toggle button.active {
+  background: rgba(255,255,255,0.08);
+  color: var(--fg);
+  border-color: rgba(255,255,255,0.2);
+}
+.color-toggle button:hover:not(.active) {
+  background: rgba(255,255,255,0.04);
+}
+
 .gradient-legend {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--fg2);
 }
-.gradient-legend canvas {
-  border-radius: 2px;
-}
+.gradient-legend canvas { border-radius: 2px; }
 
 canvas#canvas {
   display: block;
-  position: fixed;
-  top: 0;
-  left: var(--sidebar-w);
   cursor: default;
 }
 
@@ -160,22 +185,9 @@ canvas#canvas {
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
 #tooltip.visible { opacity: 1; }
-#tooltip .tt-title {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #fff;
-}
-#tooltip .tt-exposure {
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-#tooltip .tt-stats {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 2px 12px;
-  font-size: 12px;
-}
+#tooltip .tt-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #fff; }
+#tooltip .tt-exposure { font-size: 12px; margin-bottom: 8px; }
+#tooltip .tt-stats { display: grid; grid-template-columns: auto auto; gap: 2px 12px; font-size: 12px; }
 #tooltip .tt-stats .label { color: var(--fg2); }
 #tooltip .tt-stats .value { color: var(--fg); text-align: right; }
 #tooltip .tt-titles {
@@ -196,47 +208,57 @@ canvas#canvas {
 </head>
 <body>
 
-<div id="sidebar">
-  <div>
-    <h1>What Are AI Labs Actually Hiring For?</h1>
-    <div class="subtitle">
-      Frontier lab job postings vs BLS AI exposure scores<br>
-      Area = job count &middot; color = BLS exposure<br>
-      <a href="index.html">BLS Treemap</a> &middot; <a href="https://github.com/angadhn/jobs">GitHub</a>
+<div id="wrapper">
+<div id="header">
+  <div class="intro">
+    <h1>What Are AI Labs Actually Hiring For? <a href="index.html">BLS Treemap</a> <a href="https://github.com/angadhn/jobs">GitHub</a></h1>
+    <p>Frontier lab job postings from <b>Anthropic</b>, <b>DeepMind</b>, and <b>OpenAI</b> cross-referenced with BLS AI exposure scores. Each rectangle's <b>area</b> is proportional to lab job count. <b>Color</b> shows the selected metric. Key finding: labs hire disproportionately for roles rated <b>7&ndash;9</b> on the BLS exposure scale.</p>
+  </div>
+
+  <div class="controls-row">
+    <div class="stat-section">
+      <h3>Layer</h3>
+      <div class="color-toggle" id="colorToggle">
+        <button data-mode="exposure" class="active">BLS Exposure</button>
+        <button data-mode="lab">By Lab</button>
+        <button data-mode="paradox">Paradox Score</button>
+      </div>
+    </div>
+    <div class="gradient-legend">
+      <span id="legendLow">Low exposure</span>
+      <canvas id="gradientLegend" width="80" height="8"></canvas>
+      <span id="legendHigh">High</span>
     </div>
   </div>
 
-  <div class="stat-section">
-    <h3>Total lab openings</h3>
-    <div class="stat-big" id="statTotal">—</div>
-    <div class="lab-pills" id="labPills"></div>
-  </div>
+  <div class="stats-row">
+    <div class="stat-section">
+      <h3>Total lab openings</h3>
+      <div class="stat-big" id="statTotal">&mdash;</div>
+      <div class="lab-pills" id="labPills"></div>
+    </div>
 
-  <div class="stat-section">
-    <h3>Avg BLS exposure of hired roles</h3>
-    <div class="stat-big" id="statExposure">—</div>
-    <div class="stat-label">weighted by domain job count, 0–10</div>
-  </div>
+    <div class="stat-section">
+      <h3>Avg BLS exposure</h3>
+      <div class="stat-big" id="statExposure">&mdash;</div>
+      <div class="stat-label">weighted by domain job count, 0&ndash;10</div>
+    </div>
 
-  <div class="stat-section">
-    <h3>Top domains</h3>
-    <div class="tier-bar" id="domainBar"></div>
-  </div>
+    <div class="stat-section">
+      <h3>Top domains</h3>
+      <div class="tier-bar" id="domainBar"></div>
+    </div>
 
-  <div class="stat-section">
-    <h3>Paradox score</h3>
-    <div class="stat-label">High lab demand + high BLS exposure = paradox</div>
-    <div class="tier-bar" id="paradoxBar"></div>
-  </div>
-
-  <div class="gradient-legend">
-    <span>Low exposure</span>
-    <canvas id="gradientLegend" width="80" height="8"></canvas>
-    <span>High</span>
+    <div class="stat-section">
+      <h3>Paradox score</h3>
+      <div class="stat-label">High lab demand + high BLS exposure = paradox</div>
+      <div class="tier-bar" id="paradoxBar"></div>
+    </div>
   </div>
 </div>
 
 <canvas id="canvas"></canvas>
+</div>
 
 <div id="tooltip">
   <div class="tt-title"></div>
@@ -248,92 +270,109 @@ canvas#canvas {
 
 <script>
 
-// ── Exposure color scale (matches index.html) ───────────────────────────
+// ── Color scales (matching index.html) ──────────────────────────────────
 
-function exposureColor(score) {
-  if (score == null) return [128, 128, 128];
-  const t = Math.max(0, Math.min(10, score)) / 10;
+let colorMode = "exposure";
+
+function boostContrast(t) {
+  const c = (t - 0.5) * 2;
+  const b = Math.sign(c) * Math.pow(Math.abs(c), 0.55);
+  return b / 2 + 0.5;
+}
+
+function greenRedCSS(t, alpha) {
+  t = boostContrast(Math.max(0, Math.min(1, t)));
   let r, g, b;
   if (t < 0.5) {
     const s = t / 0.5;
-    r = Math.round(50 + s * 180);
-    g = Math.round(160 - s * 10);
-    b = Math.round(50 - s * 20);
+    r = Math.round(30 + s * 200);
+    g = Math.round(180 - s * 20);
+    b = Math.round(40 - s * 20);
   } else {
     const s = (t - 0.5) / 0.5;
     r = Math.round(230 + s * 25);
-    g = Math.round(150 - s * 110);
-    b = Math.round(30 - s * 10);
+    g = Math.round(160 - s * 130);
+    b = Math.round(20 - s * 5);
   }
-  return [r, g, b];
-}
-
-function exposureColorCSS(score, alpha) {
-  const [r, g, b] = exposureColor(score);
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
-// ── Squarified treemap layout ────────────────────────────────────────────
+function exposureColorCSS(score, alpha) {
+  if (score == null) return `rgba(128,128,128,${alpha})`;
+  return greenRedCSS(score / 10, alpha);
+}
+
+// Lab-specific colors
+const LAB_COLORS = {
+  anthropic: [100, 160, 255],
+  deepmind: [80, 220, 140],
+  openai: [255, 140, 80],
+};
+
+function labColorCSS(domain, alpha) {
+  if (!siteData) return `rgba(128,128,128,${alpha})`;
+  // Color by dominant lab
+  const byLab = domain.by_lab || {};
+  let maxLab = "", maxCount = 0;
+  for (const [lab, count] of Object.entries(byLab)) {
+    if (count > maxCount) { maxLab = lab; maxCount = count; }
+  }
+  const c = LAB_COLORS[maxLab] || [128, 128, 128];
+  return `rgba(${c[0]},${c[1]},${c[2]},${alpha})`;
+}
+
+function paradoxColorCSS(score, maxScore, alpha) {
+  if (score == null || maxScore === 0) return `rgba(128,128,128,${alpha})`;
+  return greenRedCSS(score / maxScore, alpha);
+}
+
+// ── Tile coloring ────────────────────────────────────────────────────────
+
+let maxParadoxScore = 1;
+
+function tileColorCSS(d, alpha) {
+  if (colorMode === "exposure") return exposureColorCSS(d.avg_bls_exposure, alpha);
+  if (colorMode === "lab") return labColorCSS(d, alpha);
+  if (colorMode === "paradox") return paradoxColorCSS(d.paradox_score, maxParadoxScore, alpha);
+  return `rgba(128,128,128,${alpha})`;
+}
+
+// ── Squarified treemap layout ───────────────────────────────────────────
 
 function squarify(items, x, y, w, h) {
   if (items.length === 0) return [];
-  if (items.length === 1) {
-    return [{ ...items[0], rx: x, ry: y, rw: w, rh: h }];
-  }
-
+  if (items.length === 1) return [{ ...items[0], rx: x, ry: y, rw: w, rh: h }];
   const total = items.reduce((s, d) => s + d.value, 0);
   if (total === 0) return [];
-
   const results = [];
-  let remaining = [...items];
-  let cx = x, cy = y, cw = w, ch = h;
-
+  let remaining = [...items], cx = x, cy = y, cw = w, ch = h;
   while (remaining.length > 0) {
     const remTotal = remaining.reduce((s, d) => s + d.value, 0);
     const vertical = cw >= ch;
     const side = vertical ? ch : cw;
-
-    let row = [remaining[0]];
-    let rowSum = remaining[0].value;
-
+    let row = [remaining[0]], rowSum = remaining[0].value;
     for (let i = 1; i < remaining.length; i++) {
       const candidate = [...row, remaining[i]];
       const candidateSum = rowSum + remaining[i].value;
       if (worstAspect(candidate, candidateSum, side, remTotal, vertical ? cw : ch) <
           worstAspect(row, rowSum, side, remTotal, vertical ? cw : ch)) {
-        row = candidate;
-        rowSum = candidateSum;
-      } else {
-        break;
-      }
+        row = candidate; rowSum = candidateSum;
+      } else break;
     }
-
     const rowFraction = rowSum / remTotal;
     const rowThickness = vertical ? cw * rowFraction : ch * rowFraction;
-
     let offset = 0;
     for (const item of row) {
       const itemFraction = item.value / rowSum;
       const itemLength = side * itemFraction;
-      if (vertical) {
-        results.push({ ...item, rx: cx, ry: cy + offset, rw: rowThickness, rh: itemLength });
-      } else {
-        results.push({ ...item, rx: cx + offset, ry: cy, rw: itemLength, rh: rowThickness });
-      }
+      if (vertical) results.push({ ...item, rx: cx, ry: cy + offset, rw: rowThickness, rh: itemLength });
+      else results.push({ ...item, rx: cx + offset, ry: cy, rw: itemLength, rh: rowThickness });
       offset += itemLength;
     }
-
-    if (vertical) {
-      cx += rowThickness;
-      cw -= rowThickness;
-    } else {
-      cy += rowThickness;
-      ch -= rowThickness;
-    }
-
+    if (vertical) { cx += rowThickness; cw -= rowThickness; }
+    else { cy += rowThickness; ch -= rowThickness; }
     remaining = remaining.slice(row.length);
   }
-
   return results;
 }
 
@@ -350,7 +389,7 @@ function worstAspect(row, rowSum, side, totalArea, availableExtent) {
   return worst;
 }
 
-// ── Rendering ────────────────────────────────────────────────────────────
+// ── Rendering ───────────────────────────────────────────────────────────
 
 let siteData = null;
 let rects = [];
@@ -373,9 +412,9 @@ function formatNumber(n) {
 function layout() {
   if (!siteData) return;
 
-  const sidebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w'));
-  const w = window.innerWidth - sidebarW;
-  const h = window.innerHeight;
+  const wrapper = document.getElementById("wrapper");
+  const w = wrapper.clientWidth;
+  const h = Math.round(w * 3 / 4);
 
   canvas.width = w * dpr;
   canvas.height = h * dpr;
@@ -387,13 +426,11 @@ function layout() {
   const tw = w - MARGIN * 2;
   const th = h - MARGIN * 2;
 
-  // Create treemap items from domains
   const items = siteData.domains.map(d => ({
     ...d,
     value: d.lab_jobs,
   })).filter(d => d.value > 0);
 
-  // Sort by value descending
   items.sort((a, b) => b.value - a.value);
 
   rects = squarify(items, tx, ty, tw, th);
@@ -417,9 +454,8 @@ function draw() {
 
     if (rw <= 0 || rh <= 0) continue;
 
-    const exposure = r.avg_bls_exposure;
     const fillAlpha = isHovered ? 0.85 : 0.55;
-    ctx.fillStyle = exposureColorCSS(exposure, fillAlpha);
+    ctx.fillStyle = tileColorCSS(r, fillAlpha);
 
     // Rounded rect
     const radius = 4;
@@ -448,7 +484,6 @@ function draw() {
     ctx.rect(rx + 8, ry + 6, rw - 16, rh - 12);
     ctx.clip();
 
-    // Domain label — capped at 16px to avoid oversized text in large rects
     const maxFontSize = Math.min(16, Math.max(10, Math.min(rw / 10, rh / 5)));
     ctx.font = `600 ${maxFontSize}px -apple-system, system-ui, sans-serif`;
     ctx.fillStyle = isHovered ? "#fff" : "rgba(255,255,255,0.92)";
@@ -461,12 +496,20 @@ function draw() {
       ctx.font = `400 ${statFont}px -apple-system, system-ui, sans-serif`;
       ctx.fillStyle = "rgba(255,255,255,0.5)";
 
-      const expStr = exposure != null ? `exposure ${exposure}/10` : "";
-      const jobStr = `${r.lab_jobs} roles (${r.lab_pct}%)`;
-      ctx.fillText(`${jobStr}  ${expStr}`, rx + 10, ry + 8 + maxFontSize + 3);
+      let subInfo = "";
+      if (colorMode === "exposure") {
+        const expStr = r.avg_bls_exposure != null ? `exposure ${r.avg_bls_exposure}/10` : "";
+        subInfo = `${r.lab_jobs} roles (${r.lab_pct}%)  ${expStr}`;
+      } else if (colorMode === "lab") {
+        const labStr = Object.entries(r.by_lab || {}).sort((a,b) => b[1] - a[1]).map(([l,c]) => `${l}: ${c}`).join(", ");
+        subInfo = `${r.lab_jobs} roles  ${labStr}`;
+      } else if (colorMode === "paradox") {
+        subInfo = `${r.lab_jobs} roles  paradox: ${r.paradox_score}`;
+      }
+      ctx.fillText(subInfo, rx + 10, ry + 8 + maxFontSize + 3);
     }
 
-    // Example titles — max 3, smaller font
+    // Example titles
     if (rh > 70 && rw > 100 && r.example_titles) {
       const titleFont = Math.max(8, Math.min(10, maxFontSize - 4));
       ctx.font = `400 ${titleFont}px -apple-system, system-ui, sans-serif`;
@@ -485,9 +528,9 @@ function draw() {
 }
 
 function hitTest(mx, my) {
-  const sidebarW = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w'));
-  const cx = mx - sidebarW;
-  const cy = my;
+  const rect = canvas.getBoundingClientRect();
+  const cx = mx - rect.left;
+  const cy = my - rect.top;
   for (let i = rects.length - 1; i >= 0; i--) {
     const r = rects[i];
     if (cx >= r.rx && cx < r.rx + r.rw && cy >= r.ry && cy < r.ry + r.rh) {
@@ -546,7 +589,7 @@ function showTooltip(d, mx, my) {
     tt.querySelector(".tt-occupations").innerHTML = "";
   }
 
-  // Position tooltip — measure actual size to prevent clipping
+  // Position tooltip
   tt.style.left = "0px";
   tt.style.top = "0px";
   tt.style.visibility = "hidden";
@@ -560,13 +603,9 @@ function showTooltip(d, mx, my) {
   let tx = mx + pad;
   let ty = my - pad;
 
-  // Flip horizontally if would overflow right edge
   if (tx + ttW > window.innerWidth - 8) tx = mx - ttW - pad;
-  // Flip vertically if would overflow bottom
   if (ty + ttH > window.innerHeight - 8) ty = window.innerHeight - ttH - 8;
-  // Clamp to top
   if (ty < 8) ty = 8;
-  // Clamp to left
   if (tx < 8) tx = 8;
 
   tt.style.left = tx + "px";
@@ -577,12 +616,12 @@ function hideTooltip() {
   document.getElementById("tooltip").classList.remove("visible");
 }
 
-// ── Sidebar stats ────────────────────────────────────────────────────────
+// ── Sidebar stats ───────────────────────────────────────────────────────
 
 function computeStats() {
   if (!siteData) return;
 
-  document.getElementById("statTotal").textContent = siteData.total_jobs;
+  document.getElementById("statTotal").textContent = siteData.total_jobs.toLocaleString();
 
   // Lab pills
   const pillsEl = document.getElementById("labPills");
@@ -615,12 +654,12 @@ function computeStats() {
     .sort((a, b) => b.paradox_score - a.paradox_score)
     .slice(0, 6);
 
-  const maxParadox = byParadox.length > 0 ? byParadox[0].paradox_score : 1;
+  maxParadoxScore = byParadox.length > 0 ? byParadox[0].paradox_score : 1;
   paradoxEl.innerHTML = byParadox.map(d => {
-    const barWidth = (d.paradox_score / maxParadox) * 100;
+    const barWidth = (d.paradox_score / maxParadoxScore) * 100;
     const color = exposureColorCSS(d.avg_bls_exposure, 0.8);
     return `<div class="tier-row">
-      <span class="tier-name" style="width:90px;flex:none;font-size:10px">${d.label}</span>
+      <span class="tier-name" style="width:90px;flex:none;font-size:11px">${d.label}</span>
       <div style="flex:1;height:8px;background:rgba(255,255,255,0.04);border-radius:2px;overflow:hidden">
         <div style="height:100%;width:${barWidth}%;background:${color};border-radius:2px"></div>
       </div>
@@ -629,7 +668,7 @@ function computeStats() {
   }).join("");
 }
 
-// ── Events ───────────────────────────────────────────────────────────────
+// ── Events ──────────────────────────────────────────────────────────────
 
 canvas.addEventListener("mousemove", (e) => {
   const hit = hitTest(e.clientX, e.clientY);
@@ -658,19 +697,52 @@ function resize() {
   draw();
 }
 
-// ── Legend gradient ──────────────────────────────────────────────────────
+// ── Legend gradient ─────────────────────────────────────────────────────
+
+const LEGEND_CONFIG = {
+  exposure: { low: "Low exposure", high: "High" },
+  lab:      { low: "Anthropic / DeepMind", high: "OpenAI" },
+  paradox:  { low: "Low paradox", high: "High" },
+};
 
 function drawGradientLegend() {
   const c = document.getElementById("gradientLegend");
   const gctx = c.getContext("2d");
-  for (let x = 0; x < 80; x++) {
-    const score = (x / 79) * 10;
-    gctx.fillStyle = exposureColorCSS(score, 1);
-    gctx.fillRect(x, 0, 1, 8);
+  if (colorMode === "lab") {
+    // Show three lab colors as bands
+    const labs = [["anthropic", 27], ["deepmind", 27], ["openai", 26]];
+    let x = 0;
+    for (const [lab, w] of labs) {
+      const col = LAB_COLORS[lab];
+      gctx.fillStyle = `rgb(${col[0]},${col[1]},${col[2]})`;
+      gctx.fillRect(x, 0, w, 8);
+      x += w;
+    }
+  } else {
+    for (let x = 0; x < 80; x++) {
+      const t = x / 79;
+      gctx.fillStyle = greenRedCSS(t, 1);
+      gctx.fillRect(x, 0, 1, 8);
+    }
   }
+  const cfg = LEGEND_CONFIG[colorMode];
+  document.getElementById("legendLow").textContent = cfg.low;
+  document.getElementById("legendHigh").textContent = cfg.high;
 }
 
-// ── Load ─────────────────────────────────────────────────────────────────
+// ── Layer toggle ────────────────────────────────────────────────────────
+
+document.getElementById("colorToggle").addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn || !btn.dataset.mode) return;
+  colorMode = btn.dataset.mode;
+  document.querySelectorAll("#colorToggle button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  drawGradientLegend();
+  draw();
+});
+
+// ── Load ────────────────────────────────────────────────────────────────
 
 fetch("lab_data.json")
   .then(r => r.json())
